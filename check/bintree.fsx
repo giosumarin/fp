@@ -101,3 +101,86 @@ let rec count t=
             let (a, b) = count d
             let (c, d) = count s
             (a+c+1,b+d)
+
+let rec depthToList(p,t)=
+    match t with
+        | Null -> []
+        | Node (x, s, d) when p=0 -> [x]
+        | Node (x, s, d) -> depthToList(p-1,d)@depthToList(p-1,s)
+
+
+type direction = L | R ;; // Left, Right
+
+let rec getElement ((l:direction list), t)=
+    match l, t with
+        | [], Node(x,_,_) -> Some x
+        | h::tl, Node (x, s, d) when h=L -> getElement(tl, s)
+        | h::tl, Node (x, s, d) when h=R -> getElement(tl, d)
+        | _,_ -> None
+
+//----------------------------  PARTE 2  ----------------------------//
+
+let rec insert (x, t)=
+    match t with
+        | Null -> Node (x, Null, Null)
+        | Node(a, s, d) when x<a -> Node(a, insert(x, s),d)
+        | Node(a, s, d) when x>a -> Node(a, s, insert(x, d))
+        | Node(a, s, d) when x=a -> Node(a, s, d)
+        | _ -> Null //?????????????
+
+let rec insertFromList (l, t) =
+    match l with
+        | [] -> t
+        | h::tl -> insertFromList(tl,insert(h,t))
+
+//let intList = [ 20 ; 10 ; 60 ; 15 ; 40 ; 100 ; 30 ; 50 ; 70 ; 35 ; 42 ; 58 ; 75 ; 32 ; 37 ] ;;
+//let intTree=insertFromList(intList, Null);;
+
+//let strList1 = [ "pesca" ; "banana" ; "uva" ; "albicocca" ; "nocciola" ; "ribes" ] ;;
+//let strTree1=insertFromList(strList1,Null);;
+
+//--------------------------RIGA 656
+let rec search1 (c, t)=
+    match t with
+        | Null -> false
+        | Node(x, s, d) when x = c -> true
+        | Node(x, s, d) when x > c -> search1(c, s)
+        | Node(x, s, d) -> search1(c, d)
+
+//search("ribes", strTree1);
+
+let searchPath (c, t)=
+    let rec sp t=
+        match t with
+            | Null -> []
+            | Node(x, s, d) when x = c -> [x]
+            | Node(x, s, d) when x > c -> x::sp s
+            | Node(x, s, d) -> x::sp d
+    let a= sp t
+    let rv=List.rev a
+    match rv with
+        | h::l when h=c->a
+        | _ -> []
+
+let rec min t=
+    match t with
+        | Null -> None
+        | Node(x,Null,_) -> Some x
+        | Node(x,s,_) -> min s
+//min tr;; 
+let rec subtree (r, t)=
+    match t with
+        | Null -> Null
+        | Node(x,s,d) when x=r -> Node (x,s,d)
+        | Node(x,s,d) when x<r -> subtree (r, d)
+        | Node(x,s,d) when x>r -> subtree (r, s)
+        | _ -> Null;
+
+let strList1 = [ "pesca" ; "banana" ; "uva" ; "albicocca" ; "nocciola" ; "ribes" ] ;;
+let strList2 = [ "limone" ; "ciliegia" ; "mela" ; "pera" ; "noce"  ] ;;
+
+let strTree1=insertFromList(strList1,Null);;
+let strTree2=insertFromList(strList2,strTree1);;
+
+let m7 = min ( ( subtree ("limone",  strTree2) ) ) ;;  //  Some "ciliegia"
+let m8 = min ( ( subtree ("ribes",  strTree2) ) )  ;;  // Some "ribes"

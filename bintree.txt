@@ -472,7 +472,7 @@ let d2 = depthToList (2, t1) ;; // [4; 5; 6]
 let d3 = depthToList (3, t1) ;; // [7; 8; 9]
 let d4 = depthToList (4, t1) ;; // [10; 11; 12]
 let d5 = depthToList (5, t1) ;; // [13]
-let d7 = depthToList (100, t1) ;; // []   
+let d7 = depthToList (100, t1) ;; // [] 	  
 
 ___________________________________________________________________
 
@@ -607,7 +607,7 @@ Costruire i seguenti alberi di ricerca:
       |                             |
      10                  --------- 60 ----------
     /  \                 |                      |
-   o   15           ----- 40 ------            100
+   o   15           ----- 40 ------            100-
       /  \          |             |            /  \ 
      o    o        30            50           70   o
                   /  \           / \         /  \
