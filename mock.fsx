@@ -46,3 +46,24 @@ let optMapBinary f a b=
 let optPlus a b=optMapBinary ( + ) a b;;
 
 let optTimes a b=optMapBinary ( * ) a b;;
+
+type Form= Const of bool | Neg of Form | And of (Form*Form) | Or of (Form*Form);;
+ 
+let rec eval f=
+    match f with
+        | Const(x)->x
+        | Neg(x)->not(eval x)
+        | And(x, y)->(eval x)&&(eval y)
+        | Or(x, y)->(eval x)||(eval y);;
+
+eval (And(Const(true), Neg(Const(3=4))));;
+
+let rec toString f=
+    match f with
+        | Const(x)->string x
+        | Neg(x)->"- "+toString x
+        | And(x, y)-> "("+(toString x)+" /\ "+(toString y)+")"
+        | Or(x, y)-> "("+(toString x)+" \/ "+(toString y)+")"
+
+let main f=
+    (toString f)+" ritorna "+(string (eval f));;
