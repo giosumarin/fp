@@ -56,8 +56,18 @@ let seq3=
     }
     aux 2;;
 
-let rec duplicate s=seq{
+let rec distinct s=seq{
     let f=Seq.head s
     yield f   
-    yield! duplicate (Seq.filter (fun x -> x<>f) s)
-}
+    yield! distinct (Seq.filter (fun x -> x<>f) (Seq.skip 1 s))
+};;
+
+let rec isEqual n s1 s2=
+    match s1, s2, n with
+        | s1, s2, 0-> (Seq.head s1)=(Seq.head s2)
+        | s1, s2, x-> 
+            if (Seq.head s1)=(Seq.head s2) 
+                then (isEqual (x - 1) (Seq.skip 1 s1) (Seq.skip 1 s2)) 
+                else false;;
+
+

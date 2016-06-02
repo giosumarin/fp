@@ -158,6 +158,10 @@ Practically speaking, the above set {1,2} will be represented as the function
 
 	 fun x -> (x = 1 || x = 2)
 
+	 let s=S fun x -> x=1
+	 add 2 s=
+		S (fun x->x=2)
+
 where you do not track (i.e., assign false to) integers  not in the set
 
 ** Implement the  operations specified by the interface given in
