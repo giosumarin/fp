@@ -35,6 +35,46 @@ allFiles "/Dev-Cpp" |> Seq.take 30 |> Seq.toList;;
 
 ///////////////////// SEQ OF SUM OF SEQ
 
+let nat1=Seq.initInfinite (fun x->(float) x);
 
+let sumSeq s:seq<float>=
+    let rec aux s (acc:float)=
+        seq{
+            let acc2=(Seq.head s) + acc
+            yield acc2
+            yield! (aux (Seq.tail s) acc2)   
+       }
+    aux s 0.;;
 
+sumSeq nat1 |> Seq.take 15 |> Seq.toList;;
 
+///////////////////// TAYLOR
+
+let rec t (x:float) (k:int)=
+    match k with
+        | x when x=0 -> float 1
+        | k -> (t x (k-1)) * (x / (float k)) ;;
+
+t 3. 2;;
+
+   
+let gent x=Seq.initInfinite (t x);;
+
+gent 3. |> Seq.take 3 |> Seq.toList;;
+
+let apprTaylor x=sumSeq (Seq.initInfinite (t x));;
+
+apprTaylor 1.0;;
+
+///////////////////// LAZY PROD
+
+(fun ()->3) ();;
+
+let rec lazyProd a b=
+    let x=a ()
+    match x with
+        | 0-> (fun () -> 0)
+        | _->
+            let c= a()
+            let d= b()
+            fun () -> c*d;;
