@@ -25,9 +25,9 @@ open System.IO;;
 Directory.GetFiles "/";;
 Directory.GetDirectories "/";;
 
-let allFiles s=seq{
+let rec allFiles s=seq{
     yield! (Directory.GetFiles s)
-    yield! Seq.collect (Directory.GetFiles) (Directory.GetDirectories s)
+    yield! Seq.collect allFiles (Directory.GetDirectories s)
 }
 
 

@@ -55,12 +55,37 @@ let rec foldB f l acc=
     | []->acc
     | h::ls-> f h (foldB f ls acc)
 
+let rec fold f l acc=
+    match l with
+        | []->acc
+        | h::ls -> fold f ls (f acc h);;
+
+List.fold (-) 0 [1 .. 3];; 
+
+
+let rec foldTree f a t=
+    match t with
+        | Leaf->a
+        | Node(x,l,r)->foldTree f (f a x (foldTree f a l)) r;; 
+
+
+
+foldT (fun a b c->a+b+c) 0 (Node(1,Node(2,Leaf,Leaf),Node(4,Leaf,Leaf)));;
+
 let rec union  s1 s2 = 
     match s1 with
      | Leaf -> s2
      | Node(x,ltr,rtr) -> let ts = add x s2
                           let tsl = union  ltr ts
                           union  rtr tsl;;
+
+
+let foldT f a t =
+    let rec foldT' f a t k =
+        match t with
+        | Leaf -> k a
+        | Node(x,r,l) -> foldT' f a r ( fun res -> foldT' f a l ( fun res1 -> k (f a res res1)))
+    in foldT' f a t id;;
 
 
 // preorder here
