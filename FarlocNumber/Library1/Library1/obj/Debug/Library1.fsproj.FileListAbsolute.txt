@@ -1,0 +1,8 @@
+C:\Users\Giosuè\Desktop\fp\FarlocNumber\Library1\Library1\bin\Debug\Library1.XML
+C:\Users\Giosuè\Desktop\fp\FarlocNumber\Library1\Library1\bin\Debug\Library1.dll
+C:\Users\Giosuè\Desktop\fp\FarlocNumber\Library1\Library1\bin\Debug\Library1.pdb
+C:\Users\Giosuè\Desktop\fp\FarlocNumber\Library1\Library1\bin\Debug\FSharp.Core.dll
+C:\Users\Giosuè\Desktop\fp\FarlocNumber\Library1\Library1\bin\Debug\FSharp.Core.xml
+C:\Users\Giosuè\Desktop\fp\FarlocNumber\Library1\Library1\bin\Debug\it\FSharp.Core.resources.dll
+C:\Users\Giosuè\Desktop\fp\FarlocNumber\Library1\Library1\obj\Debug\Library1.dll
+C:\Users\Giosuè\Desktop\fp\FarlocNumber\Library1\Library1\obj\Debug\Library1.pdb

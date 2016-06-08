@@ -20,3 +20,16 @@ let isPositive l=List.forall (fun x -> x>0) l
 let genPos genL=Arb.mapFilter List.sort (fun x->isPositive x && List.length x> 3) genL
 let freq = Gen.frequency [(6,Gen.map(fun _ -> Jolly) Arb.generate<int>);(4,Gen.map(fun x -> C x ) Arb.generate<Color>)]
 Arb.generate<Block> |> Gen.sample 5 5 == Arb.from<Block> |> Arb.toGen |> Gen.sample 5 5;;
+
+module FarlocNum, exception Negative, type FN, val add : FN -> FN -> FN
+module FarlocNum, exception Negative, type FN = | C of FN | Zero
+
+let distinct1 s=
+    let rec distinct' s acc=seq{
+        let h=Seq.head s
+        if Seq.contains h acc then yield! (distinct' (Seq.tail s) acc)
+        else yield h ; yield! (distinct' (Seq.tail s) (seq{yield h; yield! acc}))
+    } 
+    distinct' s Seq.empty;;
+
+
