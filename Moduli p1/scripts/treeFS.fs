@@ -48,13 +48,13 @@ let ofList list = List.fold (fun t x -> add x t ) Leaf list
 let rec fold_treeBack f_node tree f_leaf  = 
   match tree with
     | Leaf -> f_leaf
-    | Node (x, left, right) -> f_node x (fold_treeBack f_node left f_leaf ) (fold_treeBack f_node right f_leaf )
+    | Node (x, left, right) -> f_node x (fold_treeBack f_node left f_leaf) (fold_treeBack f_node right f_leaf)
 
 let rec foldB f l acc=
     match l with
     | []->acc
     | h::ls-> f h (foldB f ls acc)
-
+    
 let rec union  s1 s2 = 
     match s1 with
      | Leaf -> s2

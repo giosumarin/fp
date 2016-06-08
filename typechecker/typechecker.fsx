@@ -1,7 +1,7 @@
 ﻿type t = INT | LSTINT;;
 
 type exp =
-  K of int
+  | K of int
   | Plus of exp * exp
   | Nil
   | Cons of exp * exp
