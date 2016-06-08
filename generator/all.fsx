@@ -279,13 +279,8 @@ let orderedNEArb =
   Arb.filter (fun xs -> ordered xs &&  List.isEmpty xs |> not) Arb.from<int list>
 
 let eos = look orderedNEArb
-
-
-// the one from the book
-let orderedMapArb =
-  Arb.mapFilter List.sort ordered Arb.from<list<int>>
-let bs = look orderedMapArb
-
+#r "FsCheck.dll"
+open FsCheck
 // Now, how can we say to QC to use this generator, rather than the standard one?
 
 // use Prop.forAll :  (Arbitrary<'a> -> ('a -> 'b) -> Property) 
